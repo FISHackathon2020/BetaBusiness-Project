@@ -5,6 +5,25 @@ from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.pdfpage import PDFPage
 
+class applicant:
+    GPA = 0
+    Date = ""
+
+    def __init__(self, file):
+        splits = str.split(file)
+
+        for split in splits:
+            print(split)
+
+            if "Expected" in split:
+                applicant.Date = split + splits.pop() + splits.pop()
+                print(applicant.Date)
+
+            if "." in split:
+                if split.replace('.', '', 1).isdigit():
+                    applicant.GPA = float(split)
+                    print(applicant.GPA)
+
 def extract_text_from_pdf(fh):
     resource_manager = PDFResourceManager()
     fake_file_handle = io.StringIO()
@@ -26,4 +45,5 @@ def extract_text_from_pdf(fh):
     
 
 file = open('Saha Cazenove Resume.pdf', 'rb') 
-print(extract_text_from_pdf(file))
+temp = extract_text_from_pdf(file)
+app = applicant(temp)
